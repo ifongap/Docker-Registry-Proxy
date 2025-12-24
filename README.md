@@ -28,11 +28,38 @@
 
 ---
 
-### 📖 使用说明
+### 📖 镜像拉取指南
 
-配置完成后，你可以通过以下格式拉取镜像：
+使用代理拉取镜像的标准格式为：
 
-#### 1. 拉取 Docker Hub 镜像
-```bash
-# 原始命令: docker pull nginx:latest
-docker pull <你的域名>/v2/<SECRET_PATH>/nginx:latest
+docker pull <你的域名>/v2/<SECRET\_PATH>/<原始仓库地址>/<镜像名>:<标签>
+
+> ​**注意**​：对于 Docker Hub 的官方镜像（如 `alpine`），原始地址请使用 `library`。
+
+#### 1. 基础仓库 (Core Registries)
+
+| **仓库分类** | **原始仓库地址** | **验证命令 (使用代理)**                                                              |
+| -------------------- | ------------------------ | -------------------------------------------------------------------------------------------- |
+| **Docker Hub**    | `docker.io`        | `docker pull <你的域名>/v2//library/alpine:latest`                        |
+| **GitHub**        | `ghcr.io`          | `docker pull <你的域名>/v2//ghcr.io/home-assistant/home-assistant:stable` |
+| **LinuxServer**   | `lscr.io`          | `docker pull <你的域名>/v2//lscr.io/linuxserver/transmission:latest`      |
+
+#### 2. 特殊仓库 (Special Registries - 支持 Token 交换)
+
+| **仓库分类** | **原始仓库地址** | **验证命令 (使用代理)**                                                             |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------------- |
+| **NVIDIA**        | `nvcr.io`          | `docker pull <你的域名>/v2//nvcr.io/nvidia/k8s-device-plugin:v0.14.1`    |
+| **AWS ECR**       | `public.ecr.aws`   | `docker pull <你的域名>/v2//public.ecr.aws/docker/library/alpine:latest` |
+
+#### 3. 通用仓库 (Common Registries)
+
+| **仓库分类** | **原始仓库地址**           | **验证命令 (使用代理)**                                                                                             |
+| -------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Quay.io**       | `quay.io`                    | `docker pull <你的域名>/v2//quay.io/coreos/etcd:v3.5.9`                                                  |
+| **Google**        | `gcr.io`                     | `docker pull <你的域名>/v2//gcr.io/distroless/static-debian11:latest`                                    |
+| **Kubernetes**    | `k8s.gcr.io`                 | `docker pull <你的域名>/v2//k8s.gcr.io/pause:3.9`                                                        |
+| **K8S New**       | `registry.k8s.io`            | `docker pull <你的域名>/v2//registry.k8s.io/pause:3.9`                                                   |
+| **Microsoft**     | `mcr.microsoft.com`          | `docker pull <你的域名>/v2//mcr.microsoft.com/dotnet/runtime-deps:6.0-alpine`                            |
+| **Elastic**       | `docker.elastic.co`          | `docker pull <你的域名>/v2//docker.elastic.co/elasticsearch/elasticsearch:8.10.2`                        |
+| **GitLab**        | `registry.gitlab.com`        | `docker pull <你的域名>/v2//registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest` |
+| **RedHat**        | `registry.access.redhat.com` | `docker pull <你的域名>/v2//registry.access.redhat.com/ubi8/ubi-minimal:latest`                          |
